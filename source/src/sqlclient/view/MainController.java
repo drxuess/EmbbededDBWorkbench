@@ -231,7 +231,11 @@ public class MainController implements Initializable {
             dbc.setDriver("derby");
         } else if (rbH2.isSelected()) {
             String path = dbPathTextField.getText();
-            dbc = new DatabaseConnection(path.substring(0, path.length()-6));
+            if(path.contains("mv.db")){
+                dbc = new DatabaseConnection(path.substring(0, path.length()-6));
+            } else {
+                dbc = new DatabaseConnection(dbPathTextField.getText());
+            }
             dbc.setDriver("h2");
         }
         dbc.openConnection();
